@@ -11,7 +11,8 @@
   <main class="page">
     <header class="page-header">
       <p class="eyebrow">ПРОСТОЙ РАСЧЁТ · ЯСНЫЙ ИТОГ</p>
-      <h1>Смета за 5 минут</h1>
+      <h1 class="screen-title">Смета за 5 минут</h1>
+      <h1 class="print-only" id="print-title"></h1>
       <p class="hint">Укажите реквизиты и добавьте позиции — суммы посчитаются сами.</p>
     </header>
 
@@ -20,8 +21,8 @@
       <div class="details-grid">
         <label>От кого<input type="text" name="sender" placeholder="Ваше имя или компания"></label>
         <label>Для кого<input type="text" name="recipient" placeholder="Клиент или организация"></label>
-        <label>Номер сметы<input type="text" name="estimate-number" placeholder="Например, 001"></label>
-        <label>Дата<input type="date" id="estimate-date" name="estimate-date"></label>
+        <label class="document-meta">Номер сметы<input type="text" name="estimate-number" placeholder="Например, 001"></label>
+        <label class="document-meta">Дата<input type="date" id="estimate-date" name="estimate-date"></label>
       </div>
     </section>
 
@@ -59,6 +60,15 @@
       <h2 id="total-title">Итого к оплате</h2>
       <output id="total" aria-live="polite" aria-atomic="true">0 ₸</output>
     </section>
+    <section class="card comment-card" aria-labelledby="comment-title">
+      <label id="comment-title" for="comment">Комментарий</label>
+      <textarea id="comment" name="comment" rows="4" placeholder="Сроки выполнения, условия оплаты"></textarea>
+    </section>
+    <p class="print-only signature">Подпись ____________________</p>
+    <div class="print-actions">
+      <button type="button" class="print-button" id="save-pdf">Сохранить PDF</button>
+      <p class="hint">В окне печати выберите «Сохранить как PDF».</p>
+    </div>
   </main>
 
   <template id="item-template">

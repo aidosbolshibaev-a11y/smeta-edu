@@ -98,3 +98,30 @@ document.querySelector("#estimate-date").value = [
 
 addItem(false);
 recalculate();
+
+function preparePrint() {
+  recalculate();
+  const number = document.querySelector('[name="estimate-number"]').value.trim() || "—";
+  const date = document.querySelector("#estimate-date").value;
+  const formattedDate = date ? date.split("-").reverse().join(".") : "—";
+  document.querySelector("#print-title").textContent = `Смета № ${number} от ${formattedDate}`;
+
+  // Plain text copies let long names and multiline comments wrap fully on paper.
+  document.querySelectorAll(".page input, .page select, .page textarea").forEach((field) => {
+    let value = field.nextElementSibling;
+    if (!value || !value.classList.contains("print-value")) {
+      value = document.createElement("span");
+      value.className = "print-only print-value";
+      value.setAttribute("aria-hidden", "true");
+      field.after(value);
+    }
+    value.textContent = field.value;
+  });
+}
+
+// Also prepare the document when printing with Ctrl/Cmd+P.
+window.addEventListener("beforeprint", preparePrint);
+document.querySelector("#save-pdf").addEventListener("click", () => {
+  preparePrint();
+  window.print();
+});
