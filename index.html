@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Смета за 5 минут</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main class="page">
+    <header class="page-header">
+      <p class="eyebrow">ПРОСТОЙ РАСЧЁТ · ЯСНЫЙ ИТОГ</p>
+      <h1>Смета за 5 минут</h1>
+      <p class="hint">Укажите реквизиты и добавьте позиции — суммы посчитаются сами.</p>
+    </header>
+
+    <section class="card" aria-labelledby="details-title">
+      <h2 id="details-title">Реквизиты</h2>
+      <div class="details-grid">
+        <label>От кого<input type="text" name="sender" placeholder="Ваше имя или компания"></label>
+        <label>Для кого<input type="text" name="recipient" placeholder="Клиент или организация"></label>
+        <label>Номер сметы<input type="text" name="estimate-number" placeholder="Например, 001"></label>
+        <label>Дата<input type="date" id="estimate-date" name="estimate-date"></label>
+      </div>
+    </section>
+
+    <section class="card positions" aria-labelledby="positions-title">
+      <div class="section-heading">
+        <h2 id="positions-title">Позиции</h2>
+        <p class="hint" id="keyboard-hint">Enter в последней строке добавит новую позицию.</p>
+      </div>
+      <table aria-label="Позиции сметы" aria-describedby="keyboard-hint">
+        <thead><tr>
+          <th scope="col">Наименование</th>
+          <th scope="col">Количество</th>
+          <th scope="col">Единица</th>
+          <th scope="col">Цена, ₸</th>
+          <th scope="col" class="amount-heading">Сумма</th>
+          <th scope="col"><span class="sr-only">Удаление</span></th>
+        </tr></thead>
+        <tbody id="items"></tbody>
+      </table>
+      <button type="button" class="add-button" id="add-item">+ Добавить позицию</button>
+    </section>
+
+    <section class="total-card" aria-labelledby="total-title">
+      <h2 id="total-title">Итого к оплате</h2>
+      <output id="total" aria-live="polite" aria-atomic="true">0 ₸</output>
+    </section>
+  </main>
+
+  <template id="item-template">
+    <tr class="item-row">
+      <td><label><span class="sr-only mobile-label">Наименование</span><input type="text" data-field="name" placeholder="Товар или услуга"></label></td>
+      <td><label><span class="sr-only mobile-label">Количество</span><input type="text" inputmode="decimal" data-field="quantity" placeholder="0" autocomplete="off" spellcheck="false"></label></td>
+      <td><label><span class="sr-only mobile-label">Единица</span><select data-field="unit"><option value="шт">шт</option><option value="час">час</option><option value="услуга">услуга</option></select></label></td>
+      <td><label><span class="sr-only mobile-label">Цена, ₸</span><input type="text" inputmode="decimal" data-field="price" placeholder="0" autocomplete="off" spellcheck="false"></label></td>
+      <td class="line-total-cell"><span class="mobile-label sr-only">Сумма</span><output data-field="amount">0 ₸</output></td>
+      <td class="remove-cell"><button type="button" class="remove-button" aria-label="Удалить позицию">✕</button></td>
+    </tr>
+  </template>
+</body>
+</html>
