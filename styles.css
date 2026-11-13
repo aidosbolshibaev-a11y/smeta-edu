@@ -28,6 +28,11 @@ textarea { resize: vertical; line-height: 1.6; }
 .print-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
 .print-button { padding: 12px 24px; border: 1px solid var(--accent); background: var(--accent); color: #fff; }
 .print-button:hover { background: #2547ad; }
+.secondary-button { padding: 12px 18px; border: 1px solid #d4dce7; background: #fff; color: var(--accent); }
+.secondary-button:hover { background: #edf2ff; }
+.screen-status:not(:empty) { margin-top: 12px; }
+.copy-fallback { margin-top: 18px; }
+.copy-fallback textarea { margin-top: 10px; }
 button { cursor: pointer; font-weight: 600; }
 :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
 .section-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 22px; }
@@ -96,7 +101,7 @@ td:last-child, th:last-child { padding-right: 0; }
   :root, body { background: #fff; color: #000; font-size: 11pt; }
   .page { max-width: none; margin: 0; padding: 0; }
   .print-only { display: block; }
-  button, .print-actions, .adjustments, .remove-cell, th:last-child,
+  button, .print-actions, .screen-status, .copy-fallback, .adjustments, .remove-cell, th:last-child,
   .screen-title, .eyebrow, .hint, .document-meta,
   input, select, textarea { display: none !important; }
   .page-header { margin-bottom: 7mm; }
