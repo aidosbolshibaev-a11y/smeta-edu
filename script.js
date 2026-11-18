@@ -13,6 +13,7 @@ const discountedOutput = document.querySelector("#discounted-amount");
 const vatOutput = document.querySelector("#vat-amount");
 const numberFormat = new Intl.NumberFormat("ru-RU", { maximumFractionDigits: 0 });
 const draftKey = "smeta-draft-v1";
+const senderKey = "smeta-sender-v1";
 const draftFields = {
   sender: document.querySelector('[name="sender"]'),
   recipient: document.querySelector('[name="recipient"]'),
@@ -147,6 +148,7 @@ function saveDraft() {
     ["name", "quantity", "unit", "price"].map((key) => [key, row.querySelector(`[data-field="${key}"]`).value])
   ));
   try {
+    localStorage.setItem(senderKey, draftFields.sender.value);
     localStorage.setItem(draftKey, JSON.stringify({ fields, positions }));
     storageStatus.hidden = true;
   } catch {
@@ -199,7 +201,9 @@ document.querySelector("#new-estimate").addEventListener("click", () => {
   const current = draftFields.number.value.trim();
   const next = current.replace(/\d+$/, (digits) => (BigInt(digits) + 1n).toString().padStart(digits.length, "0"));
   draftReady = false;
-  for (const field of Object.values(draftFields)) field.value = "";
+  for (const [key, field] of Object.entries(draftFields)) {
+    if (key !== "sender") field.value = "";
+  }
   draftFields.number.value = next !== current ? next : (current ? `${current}-1` : "1");
   draftFields.date.value = localDate();
   discountInput.value = "0";
@@ -251,6 +255,12 @@ document.querySelector("#copy-whatsapp").addEventListener("click", async () => {
 });
 
 draftFields.date.value = localDate();
+try {
+  const savedSender = localStorage.getItem(senderKey);
+  if (savedSender !== null) draftFields.sender.value = savedSender;
+} catch {
+  // restoreDraft below reports unavailable browser storage.
+}
 if (!restoreDraft()) addItem(false);
 recalculate();
 draftReady = true;
